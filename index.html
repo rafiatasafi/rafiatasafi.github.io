@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rafia Tasafi — Portfolio</title>
+  <style>
+    /* =====================
+       COLORS — edit these!
+    ===================== */
+    :root {
+      --bg:           #0a0a0a;
+      --bg2:          #111111;
+      --bg3:          #1a1a1a;
+      --accent:       #5ecfcf;
+      --accent-muted: #3a9e9e;
+      --text:         #e8e8e0;
+      --text-muted:   #888880;
+      --border:       #2a2a2a;
+      --font-mono:    'Courier New', Courier, monospace;
+    }
+
+    /* =====================
+       RESET & BASE
+    ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      line-height: 1.6;
+    }
+
+    /* =====================
+       NAV
+    ===================== */
+    nav {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 1rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* hamburger (mobile) */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-muted);
+      transition: background 0.2s;
+    }
+    .hamburger:hover span { background: var(--accent); }
+
+    /* =====================
+       SECTIONS
+    ===================== */
+    section {
+      padding: 5rem 2rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--text);
+      margin-bottom: 2rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.05em;
+    }
+
+    /* =====================
+       HERO
+    ===================== */
+    #hero {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+      flex-wrap: wrap;
+    }
+    .hero-avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-muted);
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--bg3);
+    }
+    .hero-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-text { flex: 1; min-width: 200px; }
+    .hero-greeting {
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .hero-name {
+      font-size: 2.2rem;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+    .hero-name span { color: var(--accent); }
+    .hero-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 420px;
+    }
+    .blink {
+      animation: blink 1s step-end infinite;
+      color: var(--accent);
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* =====================
+       ABOUT
+    ===================== */
+    .about-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+      max-width: 640px;
+    }
+
+    /* =====================
+       EXPERIENCE
+    ===================== */
+    .exp-item {
+      border-left: 2px solid var(--border);
+      padding-left: 1.25rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    .exp-item::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: absolute;
+      left: -5px;
+      top: 5px;
+    }
+    .exp-role {
+      font-size: 0.9rem;
+      color: var(--text);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.2rem;
+    }
+    .exp-company {
+      font-size: 0.75rem;
+      color: var(--accent-muted);
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.08em;
+    }
+    .exp-date {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+    .exp-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* =====================
+       PROJECTS
+    ===================== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .project-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem;
+      transition: border-color 0.2s;
+    }
+    .project-card:hover { border-color: var(--accent-muted); }
+    .project-title {
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+    .project-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 0.75rem;
+    }
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .tag {
+      font-size: 0.65rem;
+      color: var(--accent);
+      border: 1px solid var(--accent-muted);
+      border-radius: 2px;
+      padding: 2px 6px;
+      letter-spacing: 0.08em;
+    }
+
+    /* =====================
+       FUN FACTS
+    ===================== */
+    .fun-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .fun-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+    }
+    .fun-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+    }
+    .fun-title {
+      font-size: 0.8rem;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.08em;
+    }
+    .fun-desc {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* =====================
+       CONTACT
+    ===================== */
+    .contact-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .contact-link {
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--accent-muted);
+      border-radius: 2px;
+      padding: 0.4rem 1rem;
+      letter-spacing: 0.1em;
+      transition: background 0.2s;
+    }
+    .contact-link:hover { background: var(--bg3); }
+
+    .contact-form { max-width: 480px; }
+    .form-row { margin-bottom: 1rem; }
+    .form-label {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: 0.6rem 0.75rem;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent-muted);
+    }
+    .form-textarea { min-height: 110px; resize: vertical; }
+    .form-btn {
+      background: transparent;
+      border: 1px solid var(--accent-muted);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.5rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      border-radius: 2px;
+    }
+    .form-btn:hover { background: var(--bg3); }
+
+    /* =====================
+       FOOTER
+    ===================== */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* =====================
+       RESPONSIVE
+    ===================== */
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; flex-direction: column; gap: 0.75rem; }
+      .nav-links.open { display: flex; position: absolute; top: 56px; left: 0; right: 0; background: var(--bg); border-bottom: 1px solid var(--border); padding: 1rem 1.25rem; }
+      .hamburger { display: flex; }
+
+      #hero {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+      }
+      .hero-name { font-size: 1.6rem; }
+      section { padding: 3rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero">rafiatasafi</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#fun">fun facts</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-avatar">
+      <!-- Replace 'avatar.png' with your actual avatar file path -->
+      <img src="avatar.png" alt="Rafia's avatar" />
+    </div>
+    <div class="hero-text">
+      <p class="hero-greeting">// hello, world</p>
+      <h1 class="hero-name">Rafia <span>Tasafi</span></h1>
+      <p class="hero-sub">
+        CS student @ CCNY &nbsp;·&nbsp; Full Stack Developer &nbsp;·&nbsp; Building things that matter<span class="blink">_</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2 class="section-title">About me</h2>
+    <p class="about-text">
+      First-year CS student at The City College of New York, Grove School of Engineering. I love building things — from ear training apps to data dashboards — and I'm currently interning as a Full Stack Python Developer at EnerKnol. When I'm not coding, I'm probably playing my guitar or diving deep into a psychology book.
+    </p>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <h2 class="section-title">Experience</h2>
+
+    <div class="exp-item">
+      <p class="exp-role">Full Stack Python Developer Intern</p>
+      <p class="exp-company">EnerKnol · CUNY Career Launch STEM</p>
+      <p class="exp-date">July 26 — present</p>
+      <p class="exp-desc">Building and maintaining full stack features using Python. Working with ETL pipelines and cloud infrastructure on AWS.</p>
+    </div>
+
+    <div class="exp-item">
+      <p class="exp-role">Full Stack Developer</p>
+      <p class="exp-company">Street Gols</p>
+      <p class="exp-date">Jun 26 — present</p>
+      <p class="exp-desc">Contributing to a NYC pick-up soccer platform. Maintaining the Next.js website and React Native mobile app backend.</p>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <p class="project-title">Chord Quest</p>
+        <p class="project-desc">Browser-based ear training game built with the Web Audio API. No external libraries — pure JS audio engine from scratch.</p>
+        <div class="project-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">Web Audio API</span>
+          <span class="tag">HTML/CSS</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <p class="project-title">QR Code Encoder/Decoder</p>
+        <p class="project-desc">Custom QR code encoder and decoder built from scratch in C++, without any third-party libraries.</p>
+        <div class="project-tags">
+          <span class="tag">C++</span>
+          <span class="tag">Algorithms</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <p class="project-title">MTA Transit Dashboard</p>
+        <p class="project-desc">Incident analysis dashboard for NYC transit data, surfacing patterns and trends using pandas and Matplotlib.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">pandas</span>
+          <span class="tag">Matplotlib</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FUN FACTS -->
+  <section id="fun">
+    <h2 class="section-title">Fun Facts</h2>
+    <div class="fun-grid">
+
+      <div class="fun-card">
+        <div class="fun-icon">♪</div>
+        <p class="fun-title">Music lover</p>
+        <p class="fun-desc">Music runs through everything I build. I even made an ear training game just to sharpen my musical mind.</p>
+      </div>
+
+      <div class="fun-card">
+        <div class="fun-icon">◈</div>
+        <p class="fun-title">Deep reader</p>
+        <p class="fun-desc">I'm drawn to deep psychological books — the kind that make you rethink how the human mind works.</p>
+      </div>
+
+      <div class="fun-card">
+        <div class="fun-icon">◎</div>
+        <p class="fun-title">Puzzle enthusiast</p>
+        <p class="fun-desc">Global finalist in Bloomberg BPuzzled — a competitive puzzle challenge for sharp analytical minds.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="section-title">Contact</h2>
+
+    <div class="contact-links">
+      <a class="contact-link" href="https://github.com/rafiatasafi" target="_blank" rel="noopener">github</a>
+      <a class="contact-link" href="https://linkedin.com/in/rafiatasafi" target="_blank" rel="noopener">linkedin</a>
+      <!-- Replace with your real email below -->
+      <a class="contact-link" href="mailto:your@email.com">email</a>
+    </div>
+
+    <div class="contact-form">
+      <div class="form-row">
+        <label class="form-label" for="name">name</label>
+        <input class="form-input" id="name" type="text" placeholder="your name" />
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="email">email</label>
+        <input class="form-input" id="email" type="email" placeholder="your@email.com" />
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="message">message</label>
+        <textarea class="form-textarea" id="message" placeholder="say hello..."></textarea>
+      </div>
+      <button class="form-btn">send message</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Rafia Tasafi &nbsp;·&nbsp; built with ♥ and coffee</p>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+  </script>
+
+</body>
+</html>
